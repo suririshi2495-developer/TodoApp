@@ -9,7 +9,7 @@ Work in progress. Currently scaffolded only.
 ## Structure
 
 - `src/TodoApp.Core` domain model, guards, interfaces, service logic. Depends on nothing.
-- `src/TodoApp.Infrastructure` JSON file storage, clock, id generation.
+- `src/TodoApp.Infrastructure` JSON file storage and the system clock.
 - `src/TodoApp.Api` controllers, DTOs, validation, middleware, DI wiring.
 - `tests/TodoApp.Core.Tests` unit tests.
 - `tests/TodoApp.Api.Tests` integration tests.

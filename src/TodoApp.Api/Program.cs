@@ -12,6 +12,8 @@ builder.Services.AddSingleton<ITodoRepository, InMemoryTodoRepository>();
 // Register the system clock
 builder.Services.AddSingleton<IClock, SystemClock>();
 
+builder.Services.AddScoped<TodoService>();
+
 var app = builder.Build();
 
 // Swagger is a development tool, not a production surface: it describes every
