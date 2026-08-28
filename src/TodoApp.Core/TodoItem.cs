@@ -67,5 +67,14 @@ namespace TodoApp.Core
 
         public bool IsOverdue(DateOnly today) =>
             DueDate.HasValue && !IsCompleted && DueDate.Value < today;
+
+        public static TodoItem FromStorage(Guid id, string? title, string? description, DateOnly? dueDate, 
+            bool isCompleted, DateTime createdAtUtc)
+        {
+            return new TodoItem(id, title, description, dueDate, createdAtUtc)
+            {
+                IsCompleted = isCompleted
+            };
+        }
     }
 }

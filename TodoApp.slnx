@@ -10,5 +10,6 @@
   <Folder Name="/tests/">
     <Project Path="tests/TodoApp.Api.Tests/TodoApp.Api.Tests.csproj" />
     <Project Path="tests/TodoApp.Core.Tests/TodoApp.Core.Tests.csproj" />
+    <Project Path="tests/TodoApp.Infrastructure.Tests/TodoApp.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

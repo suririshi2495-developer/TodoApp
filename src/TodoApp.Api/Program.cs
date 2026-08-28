@@ -1,8 +1,16 @@
+using TodoApp.Core;
+using TodoApp.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register the in-memory todo repository
+builder.Services.AddSingleton<ITodoRepository, InMemoryTodoRepository>();
+// Register the system clock
+builder.Services.AddSingleton<IClock, SystemClock>();
 
 var app = builder.Build();
 
