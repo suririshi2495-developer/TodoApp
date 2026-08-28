@@ -35,8 +35,13 @@ namespace TodoApp.Core
 
         public void UpdateDetails(string? title, string? description, DateOnly? dueDate)
         {
-            Title = Guard.RequiredText(title, MaxTitleLength, nameof(title));
-            Description = Guard.OptionalText(description, MaxDescriptionLength, nameof(description));
+            // Validate everything before assigning anything, so a rejected update
+            // cannot leave the item holding a mix of new and old values.
+            var validatedTitle = Guard.RequiredText(title, MaxTitleLength, nameof(title));
+            var validatedDescription = Guard.OptionalText(description, MaxDescriptionLength, nameof(description));
+
+            Title = validatedTitle;
+            Description = validatedDescription;
             DueDate = dueDate;
         }
 
