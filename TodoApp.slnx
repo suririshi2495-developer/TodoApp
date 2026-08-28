@@ -1,1 +1,14 @@
-<Solution />
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/TodoApp.Api/TodoApp.Api.csproj" />
+    <Project Path="src/TodoApp.Core/TodoApp.Core.csproj" />
+    <Project Path="src/TodoApp.Infrastructure/TodoApp.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TodoApp.Api.Tests/TodoApp.Api.Tests.csproj" />
+    <Project Path="tests/TodoApp.Core.Tests/TodoApp.Core.Tests.csproj" />
+  </Folder>
+</Solution>
