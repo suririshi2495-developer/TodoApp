@@ -67,7 +67,7 @@ namespace TodoApp.Core.Tests
         [Fact]
         public async Task GetAllAsync_WithNoItems_ReturnsEmptyList()
         {
-            Assert.Empty(await _service.GetAllAsync(CancellationToken.None));
+            Assert.Empty(await _service.GetAllAsync(TodoFilter.All, TodoSort.CreatedAt, CancellationToken.None));
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace TodoApp.Core.Tests
             await _service.CreateAsync("First", null, null, CancellationToken.None);
             await _service.CreateAsync("Second", null, null, CancellationToken.None);
 
-            var all = await _service.GetAllAsync(CancellationToken.None);
+            var all = await _service.GetAllAsync(TodoFilter.All, TodoSort.CreatedAt, CancellationToken.None);
 
             Assert.Equal(2, all.Count);
         }

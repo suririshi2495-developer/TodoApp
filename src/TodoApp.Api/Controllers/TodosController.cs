@@ -33,9 +33,11 @@ namespace TodoApp.Api.Controller
 
         [HttpGet]
         [ProducesResponseType(typeof(IReadOnlyList<TodoResponse>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IReadOnlyList<TodoResponse>>> GetAll(CancellationToken cancellationToken)
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IReadOnlyList<TodoResponse>>> GetAll([FromQuery] string? filter, [FromQuery] string? sort,
+        CancellationToken cancellationToken)
         {
-            var items = await _service.GetAllAsync(cancellationToken);
+            var items = await _service.GetAllAsync(TodoQuery.ParseFilter(filter), TodoQuery.ParseSort(sort), cancellationToken);
 
             return Ok(items.Select(TodoMapper.ToResponse).ToList());
         }

@@ -237,5 +237,38 @@ namespace TodoApp.Api.Tests
 
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
         }
+
+        [Fact]
+        public async Task Get_WithAnUnknownFilter_Returns400ProblemJson()
+        {
+            var response = await _client.GetAsync("/api/todos?filter=done");
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+            Assert.Equal("application/problem+json", response.Content.Headers.ContentType?.MediaType);
+        }
+
+        [Fact]
+        public async Task Get_WithAnUnknownSort_Returns400()
+        {
+            var response = await _client.GetAsync("/api/todos?sort=name");
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Get_WithAFilterAndASort_ReturnsTheMatchingItemsInOrder()
+        {
+            var first = await CreateAsync("zebra");
+            await CreateAsync("mango");
+            await CreateAsync("apple");
+
+            await _client.PostAsync($"/api/todos/{first}/complete", null);
+
+            var items = await _client.GetFromJsonAsync<List<TodoResponse>>(
+                "/api/todos?filter=incomplete&sort=title");
+
+            Assert.NotNull(items);
+            Assert.Equal(new[] { "apple", "mango" }, items.Select(item => item.Title));
+        }
     }
 }

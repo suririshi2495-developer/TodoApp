@@ -26,8 +26,16 @@
             return item;
         }
 
-        public Task<IReadOnlyList<TodoItem>> GetAllAsync(CancellationToken cancellationToken) =>
-            _repository.GetAllAsync(cancellationToken);
+        public async Task<IReadOnlyList<TodoItem>> GetAllAsync(TodoFilter filter, TodoSort sort, CancellationToken cancellationToken)
+        {
+            var items = await _repository.GetAllAsync(cancellationToken);
+
+            // "Today" comes from the injected clock, so an overdue test does not depend on
+            // the day the suite happens to run.
+            var today = DateOnly.FromDateTime(_clock.UtcNow);
+
+            return Sort(items.Where(item => Matches(item, filter, today)), sort).ToList();
+        }
 
         public async Task<TodoItem> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
@@ -92,6 +100,25 @@
                 throw NotFound(item.Id);
             }
         }
+
+        // The overdue rule is not restated here. TodoItem.IsOverdue owns it, so the filter
+        // and anything else that asks the question get the same answer.
+        private static bool Matches(TodoItem item, TodoFilter filter, DateOnly today) => filter switch
+        {
+            TodoFilter.Completed => item.IsCompleted,
+            TodoFilter.Incomplete => !item.IsCompleted,
+            TodoFilter.Overdue => item.IsOverdue(today),
+            _ => true
+        };
+
+        private static IEnumerable<TodoItem> Sort(IEnumerable<TodoItem> items, TodoSort sort) => sort switch
+        {
+            // Items with no due date sort last, not first. A task with no deadline is not
+            // the most urgent thing on the list, which is what null-sorts-first would say.
+            TodoSort.DueDate => items.OrderBy(item => item.DueDate is null).ThenBy(item => item.DueDate),
+            TodoSort.Title => items.OrderBy(item => item.Title, StringComparer.OrdinalIgnoreCase),
+            _ => items.OrderBy(item => item.CreatedAt)
+        };
 
         private static NotFoundException NotFound(Guid id) =>
             new($"No to-do item was found with id '{id}'.");

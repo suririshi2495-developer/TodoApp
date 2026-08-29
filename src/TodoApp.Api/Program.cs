@@ -10,6 +10,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<DomainExceptionHandler>();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    // A to-do is a title, a description and a date. The 30 MB default lets a client
+    // occupy the server with a body that will never be read.
+    options.Limits.MaxRequestBodySize = 32 * 1024;
+});
+
 // Missing configuration should stop the app at startup, not surface later as an
 // empty store nobody notices.
 var storageFilePath = builder.Configuration["Storage:FilePath"]
