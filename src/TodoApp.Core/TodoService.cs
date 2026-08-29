@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TodoApp.Core
+﻿namespace TodoApp.Core
 {
     public sealed class TodoService
     {
@@ -99,7 +93,7 @@ namespace TodoApp.Core
             }
         }
 
-        private static ValidationException NotFound(Guid id) =>
+        private static NotFoundException NotFound(Guid id) =>
             new($"No to-do item was found with id '{id}'.");
     }
 }

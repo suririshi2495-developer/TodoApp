@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TodoApp.Infrastructure;
+﻿using TodoApp.Infrastructure;
 
 namespace TodoApp.Core.Tests
 {
@@ -99,7 +94,7 @@ namespace TodoApp.Core.Tests
         [Fact]
         public async Task GetByIdAsync_WithUnknownId_ThrowsNotFoundException()
         {
-            await Assert.ThrowsAsync<ValidationException>(
+            await Assert.ThrowsAsync<NotFoundException>(
                 () => _service.GetByIdAsync(Guid.NewGuid(), CancellationToken.None));
         }
 
@@ -127,7 +122,7 @@ namespace TodoApp.Core.Tests
         [Fact]
         public async Task UpdateAsync_WithUnknownId_ThrowsNotFoundException()
         {
-            await Assert.ThrowsAsync<ValidationException>(
+            await Assert.ThrowsAsync<NotFoundException>(
                 () => _service.UpdateAsync(Guid.NewGuid(), "Buy bread", null, null, CancellationToken.None));
         }
 
@@ -150,7 +145,7 @@ namespace TodoApp.Core.Tests
             var item = new TodoItem(Guid.NewGuid(), "Buy milk", null, null, Now);
             var service = new TodoService(new VanishingTodoRepository(item), new FixedClock(Now));
 
-            await Assert.ThrowsAsync<ValidationException>(
+            await Assert.ThrowsAsync<NotFoundException>(
                 () => service.UpdateAsync(item.Id, "Buy bread", null, null, CancellationToken.None));
         }
 
@@ -211,7 +206,7 @@ namespace TodoApp.Core.Tests
         [Fact]
         public async Task DeleteAsync_WithUnknownId_ThrowsNotFoundException()
         {
-            await Assert.ThrowsAsync<ValidationException>(
+            await Assert.ThrowsAsync<NotFoundException>(
                 () => _service.DeleteAsync(Guid.NewGuid(), CancellationToken.None));
         }
 

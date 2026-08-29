@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TodoApp.Core
+﻿namespace TodoApp.Core
 {
     public sealed class TodoItem
     {
@@ -68,7 +62,7 @@ namespace TodoApp.Core
         public bool IsOverdue(DateOnly today) =>
             DueDate.HasValue && !IsCompleted && DueDate.Value < today;
 
-        public static TodoItem FromStorage(Guid id, string? title, string? description, DateOnly? dueDate, 
+        public static TodoItem FromStorage(Guid id, string? title, string? description, DateOnly? dueDate,
             bool isCompleted, DateTime createdAtUtc)
         {
             return new TodoItem(id, title, description, dueDate, createdAtUtc)

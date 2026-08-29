@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TodoApp.Infrastructure
+﻿namespace TodoApp.Infrastructure
 {
     // The on-disk shape, kept separate from TodoItem so the storage format can change
     // without touching the domain, and so the domain never needs public setters or a

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TodoApp.Core.Tests
+﻿namespace TodoApp.Core.Tests
 {
     // Hands back an item on read but reports it gone on write. That is exactly what
     // happens when another request deletes the item between the service's load and its

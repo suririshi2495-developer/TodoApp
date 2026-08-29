@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Logging.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TodoApp.Core;
 
 namespace TodoApp.Infrastructure.Tests
