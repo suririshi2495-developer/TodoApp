@@ -70,7 +70,7 @@ Requests and responses are separate types from the entity, mapped by hand in `To
 
     dotnet test
 
-135 tests, no mocking library - the fakes are hand-written and a few lines each.
+120 tests, no mocking library - the fakes are hand-written and a few lines each.
 
 - `TodoApp.Core.Tests` - entity rules, service behaviour, and the query parsing.
 - `TodoApp.Infrastructure.Tests` - both repositories against the same expectations, including a corrupt file and a restart.

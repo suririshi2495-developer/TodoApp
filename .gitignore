@@ -364,5 +364,5 @@ FodyWeavers.xsd
 
 # Local todo store written at runtime
 data/
-*.todos.json
+todos.json*
 *.todos.json.tmp
